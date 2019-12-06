@@ -472,7 +472,7 @@ def display_table(table):
             row_html += "<td>{:40}</td>".format(str(col))
         html += "<tr>" + row_html + "</tr>"
     html = "<table>" + html + "</table>"
-    IPython.display.display(IPython.display.HTML(html))
+    #IPython.display.display(IPython.display.HTML(html))
 
 
 def display_weight_stats(model):
