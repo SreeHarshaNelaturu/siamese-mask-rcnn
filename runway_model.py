@@ -33,18 +33,20 @@ ROOT_DIR = os.getcwd()
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
-@runway.setup(options={"checkpoint" : file(extension=".h5"), "size" :category(choices=["small", "large"], default="small")})
+@runway.setup(options={"checkpoint" : file(extension=".h5"), "size" : category(choices=["small", "large"], default="small")})
 def setup(opts):
+    
     train_schedule = OrderedDict()
-    size = opts["size"]
-    if size == "small":
+    model_size = opts["size"]
+    
+    if model_size == "small":
        config = SmallEvalConfig()
-       #config.display()
+       config.display()
        train_schedule[1] = {"learning_rate": config.LEARNING_RATE, "layers": "heads"}
        train_schedule[120] = {"learning_rate": config.LEARNING_RATE, "layers": "4+"}
        train_schedule[160] = {"learning_rate": config.LEARNING_RATE/10, "layers": "all"}
 
-    else:
+    elif model_size == "large":
         config = LargeEvalConfig()
         config.display()
         train_schedule[1] = {"learning_rate": config.LEARNING_RATE, "layers": "heads"}
@@ -80,4 +82,4 @@ def detect_target(model, inputs):
     return {"output_image" : out}
 
 if __name__ == "__main__":
-    runway.run(model_options={"checkpoint" : "checkpoints/small_siamese_mrcnn_0160.h5", "size" : "small"})
+    runway.run()
