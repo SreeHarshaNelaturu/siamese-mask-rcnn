@@ -91,7 +91,8 @@ cat = category(choices=["small", "large"], default="small")
         train_schedule[1] = {"learning_rate": config.LEARNING_RATE, "layers": "heads"}
         train_schedule[240] = {"learning_rate": config.LEARNING_RATE, "layers": "all"}
         train_schedule[320] = {"learning_rate": config.LEARNING_RATE/10, "layers": "all"}
-
+    
+    print(train_schedule)
     checkpoint = opts["checkpoint"]
 
     config.NUM_TARGETS = 1
