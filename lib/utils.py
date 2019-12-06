@@ -383,7 +383,7 @@ def display_results(target, image, boxes, masks, class_ids,
             p = visualize.Polygon(verts, facecolor="none", edgecolor=color)
             #print(p)
             ax.add_patch(p)
-    ax.imsave(masked_image.astype(np.uint8))
+    #ax.imsave(masked_image.astype(np.uint8))
     ax.axis('tight')
 
     plt.subplots_adjust(0,0,1,1,0,0)
