@@ -72,10 +72,9 @@ ROOT_DIR = os.getcwd()
 
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
+cat = category(choices=["small", "large"], default="small")
 
-@runway.setup(options={"checkpoint" : file(extension=".h5"), "size" : category(choices=["small", "large"], default="small")})
-def setup(opts):
-    
+@runway.setup(options={"checkpoint" : file(extension=".h5"), "size" : cat})
     train_schedule = OrderedDict()
     model_size = opts["size"]
     
