@@ -103,7 +103,7 @@ def setup(opts):
     model.load_checkpoint(checkpoint, training_schedule=train_schedule)
 
     return {"model" : model,
-            "size" : size }
+            "size" : model_size }
 
 command_inputs = {"input_image" : image, "target_object" : image}
 command_outputs = {"output_image" : image}
@@ -124,4 +124,4 @@ def detect_target(model, inputs):
     return {"output_image" : out}
 
 if __name__ == "__main__":
-    runway.run()
+    runway.run(model_options={"checkpoint" : "checkpoints/small_siamese_mrcnn_0160.h5", "size" : "small"})
