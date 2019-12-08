@@ -853,9 +853,9 @@ class SiameseMaskRCNN(modellib.MaskRCNN):
         
         # set layers trainable for resnet weight loading
         if model_size == "small":
-            epoch_index = int("0160")
+            epoch_index = 0160
         else:
-            epoch_index = int("0320")
+            epoch_index = 0320
                         
         if verbose > 0:
             print('starting from epoch {}'.format(epoch_index))
