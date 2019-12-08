@@ -852,7 +852,7 @@ class SiameseMaskRCNN(modellib.MaskRCNN):
         }
         
         # set layers trainable for resnet weight loading
-        epoch_index = int(weights_path[-7:-3])
+        epoch_index = int(320)
         if verbose > 0:
             print('starting from epoch {}'.format(epoch_index))
         if training_schedule is not None:
