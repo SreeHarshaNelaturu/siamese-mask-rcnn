@@ -100,7 +100,7 @@ def setup(opts):
     config.NUM_TARGETS = 1
 
     model = siamese_model.SiameseMaskRCNN(mode="inference", model_dir=MODEL_DIR, config=config)
-    model.load_checkpoint(checkpoint, training_schedule=train_schedule)
+    model.load_checkpoint(size, checkpoint, training_schedule=train_schedule)
 
     return {"model" : model,
             "size" : model_size }
