@@ -833,7 +833,7 @@ class SiameseMaskRCNN(modellib.MaskRCNN):
         self.load_weights(weights_path, by_name=True)
         self.set_log_dir()
     
-    def load_checkpoint(self, weights_path, training_schedule=None, verbose=1):
+    def load_checkpoint(self, model_size, weights_path, training_schedule=None, verbose=1):
         if verbose > 0:
             print('loading', weights_path, '...')
         
@@ -852,7 +852,11 @@ class SiameseMaskRCNN(modellib.MaskRCNN):
         }
         
         # set layers trainable for resnet weight loading
-        epoch_index = int(320)
+        if model_size == "small":
+            epoch_index = int("0160")
+        else:
+            epoch_index = int("0320")
+                        
         if verbose > 0:
             print('starting from epoch {}'.format(epoch_index))
         if training_schedule is not None:
