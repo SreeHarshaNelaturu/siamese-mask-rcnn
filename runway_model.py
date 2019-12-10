@@ -106,7 +106,7 @@ def setup(opts):
             "size" : model_size }
 
 command_inputs = {"input_image" : image, "target_object" : image}
-command_outputs = {"output_image" : image}
+command_outputs = {"output_image" : image, "masks" : array(image)}
 
 
 @runway.command("detect_target", inputs=command_inputs, outputs=command_outputs, description="One shot instance segmentation")
@@ -120,8 +120,16 @@ def detect_target(model, inputs):
     r = results[0]
 
     out = siamese_utils.display_results(target_im, im, r['rois'], r['masks'], r['class_ids'], r['scores'])
+    
+    mask_imgs = []
+    for mask in r['boxes'].shape[0]:
+        mask = r['masks'][:, :, i]
+        mask_img = image.fromarray(np.expand_dims(mask*255, -1).astype(np.uint8)) 
+        mask_imgs.append(mask_img)
 
-    return {"output_image" : out}
+    return {"output_image" : out, "masks" : mask_imgs}
+
+
 
 if __name__ == "__main__":
     runway.run(model_options={"checkpoint" : "checkpoints/small_siamese_mrcnn_0160.h5", "size" : "small"})
