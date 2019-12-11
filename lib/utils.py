@@ -70,6 +70,7 @@ def display_results(target, image, boxes, masks, class_ids,
     ax.set_title(title)
    
     masked_image = image.astype(np.uint32).copy()
+    out_masks = []
     for i in range(N):
         color = colors[i]
 
@@ -112,6 +113,7 @@ def display_results(target, image, boxes, masks, class_ids,
             p = visualize.Polygon(verts, facecolor="none", edgecolor=color)
             #print(p)
             ax.add_patch(p)
+        out_masks.append(padded_mask)
    
     ax.imshow(masked_image.astype(np.uint8))
     ax.axis('tight')
@@ -125,7 +127,7 @@ def display_results(target, image, boxes, masks, class_ids,
     image_from_plot = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
     image_from_plot = image_from_plot.reshape(fig.canvas.get_width_height()[::-1] + (3,))
     
-    return image_from_plot
+    return image_from_plot, out_masks
 
 
 
