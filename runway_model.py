@@ -122,7 +122,7 @@ def detect_target(model, inputs):
     out = siamese_utils.display_results(target_im, im, r['rois'], r['masks'], r['class_ids'], r['scores'])
     
     mask_imgs = []
-    for mask in r['boxes'].shape[0]:
+    for mask in r.shape[0]:
         mask = r['masks'][:, :, i]
         mask_img = image.fromarray(np.expand_dims(mask*255, -1).astype(np.uint8)) 
         mask_imgs.append(mask_img)
