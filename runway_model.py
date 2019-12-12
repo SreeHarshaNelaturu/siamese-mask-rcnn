@@ -106,7 +106,7 @@ def setup(opts):
             "size" : model_size }
 
 command_inputs = {"input_image" : image, "target_object" : image}
-command_outputs = {"output_image" : image, "masks" : array(image)}
+command_outputs = {"output_image" : image, "masks" : array(image(default_output_format="PNG"))}
 
 
 @runway.command("detect_target", inputs=command_inputs, outputs=command_outputs, description="One shot instance segmentation")
@@ -129,4 +129,4 @@ def detect_target(model, inputs):
 
 
 if __name__ == "__main__":
-    runway.run(model_options={"checkpoint" : "checkpoints/small_siamese_mrcnn_0160.h5", "size" : "small"})
+    runway.run()

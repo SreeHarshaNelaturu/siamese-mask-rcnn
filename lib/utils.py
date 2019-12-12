@@ -127,7 +127,14 @@ def display_results(target, image, boxes, masks, class_ids,
     image_from_plot = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
     image_from_plot = image_from_plot.reshape(fig.canvas.get_width_height()[::-1] + (3,))
     
-    return image_from_plot, out_masks
+    mask_imgs = []
+    for i in out_masks:
+        #a = np.expand_dims(i*255, -1)
+        stacked_img = np.stack((i*255,)*3, axis=-1).astype(np.uint8)
+        mask_img = Image.fromarray(stacked_img) 
+        mask_imgs.append(mask_img)
+
+    return image_from_plot, mask_imgs
 
 
 
