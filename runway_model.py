@@ -115,18 +115,18 @@ def detect_target(model, inputs):
     im = np.array(inputs["input_image"])
     target_im = np.array(inputs["target_object"].resize((96, 96) if model["size"] == "small" else (192, 192), Image.BICUBIC))
     print(target_im.shape)
-
+    
     results = model["model"].detect([[target_im]], [im], verbose=1)
     r = results[0]
     out = siamese_utils.display_results(target_im, im, r['rois'], r['masks'], r['class_ids'], r['scores'])
     
     out_img = out[0]
     mask_imgs = out[1]
-    
+    out_img = Image.fromarray(out_img).resize((im.shape[1], im.shape[0]))
 	
     return {"output_image" : out_img, "masks" : mask_imgs}
 
 
 
 if __name__ == "__main__":
-    runway.run()
+    runway.run(model_options={"checkpoint" : "checkpoints/small.h5", "size" : "small"})
